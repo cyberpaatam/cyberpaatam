@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self' https://www.gstatic.com https://cdnjs.cloudflare.com; style-src 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src https://fonts.gstatic.com;" />
+    <meta http-equiv="Referrer-Policy" content="no-referrer" />
+    <title>Tools Mastery + Bug Bounty Crash Course</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(to bottom, #000000, #0d1f16);
+            color: white;
+        }
+
+        .glow {
+            text-shadow: 0 0 10px rgba(72, 255, 146, 0.7);
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .animate-slide-in {
+            animation: slide-in 1s ease-out forwards;
+        }
+
+        @keyframes slide-in {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="flex flex-col min-h-screen items-center justify-center px-4 py-12">
+    <section class="glass max-w-5xl w-full px-8 py-10 text-center animate-slide-in">
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-green-400 glow mb-6">
+            Tools Mastery + Bug Bounty Crash Course
+        </h1>
+        <p class="text-lg sm:text-xl text-white mb-4">
+            Hands-on with Burp, MobSF, Nmap, Frida, and real-world bug bounty techniques.
+        </p>
+        <p class="text-md text-gray-300 mb-6">
+            This power-packed course is built for hackers who want to master the most powerful tools in the industry and
+            learn how to apply them in real-world scenarios to find bugs, break apps, and report vulnerabilities for
+            rewards. From recon to exploitation — everything is taught with animated labs, live practice and AI help.
+        </p>
+        <p class="text-md text-gray-300 mb-6">
+            You'll learn tool configuration, chaining workflows, automation basics, and Frida scripting essentials. This
+            course blends offensive testing and automation skills to help you level up in the bug bounty world.
+        </p>
+        <p class="text-md text-yellow-300 mb-4">
+            🔥 Weekly quizzes, live mini-CTFs and a final lab exam to test your skills.
+        </p>
+        <p class="text-md text-yellow-300 mb-6">
+            🎁 Top scorers win swags, free tools access, and get featured on our <a href="bounty-wall.html"
+                class="underline">Bounty Wall</a>.
+        </p>
+        <a href="index.html#join"
+            class="mt-4 inline-block bg-yellow-400 text-black font-bold px-6 py-3 rounded-xl shadow hover:bg-yellow-300 transition">
+            Enroll Now
+        </a>
+    </section>
+</body>
+
+</html>
