@@ -14,24 +14,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CyberPaatam - Learn Hacking in Telugu</title>
-<meta name="description" content="Learn ethical hacking, bug bounty, mobile app pentesting, and more in Telugu. Start free with CyberPaatam.">
-<meta name="keywords" content="cyberpaatam, hacking course, ethical hacking, telugu, mobile hacking, bug bounty, frida, pentesting">
-<meta name="robots" content="index, follow">
-<meta name="author" content="OverXploit">
-<meta property="og:type" content="website">
-<meta property="og:title" content="CyberPaatam - Learn Hacking in Telugu">
-<meta property="og:description" content="Join CyberPaatam and start your ethical hacking journey in Telugu. Free course, beginner-friendly.">
-<meta property="og:image" content="https://cyberpaatam.com/assets/cyberpaatam-logo.png">
-<meta property="og:url" content="https://cyberpaatam.com/">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="CyberPaatam - Learn Hacking in Telugu">
-<meta name="twitter:description" content="Start ethical hacking in Telugu with CyberPaatam. Learn hands-on and build your career.">
-<meta name="twitter:image" content="https://cyberpaatam.com/assets/cyberpaatam-logo.png">
+    <meta name="description"
+        content="Learn ethical hacking, bug bounty, mobile app pentesting, and more in Telugu. Start free with CyberPaatam.">
+    <meta name="keywords"
+        content="cyberpaatam, hacking course, ethical hacking, telugu, mobile hacking, bug bounty, frida, pentesting">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="OverXploit">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="CyberPaatam - Learn Hacking in Telugu">
+    <meta property="og:description"
+        content="Join CyberPaatam and start your ethical hacking journey in Telugu. Free course, beginner-friendly.">
+    <meta property="og:image" content="https://cyberpaatam.com/assets/cyberpaatam-logo.png">
+    <meta property="og:url" content="https://cyberpaatam.com/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CyberPaatam - Learn Hacking in Telugu">
+    <meta name="twitter:description"
+        content="Start ethical hacking in Telugu with CyberPaatam. Learn hands-on and build your career.">
+    <meta name="twitter:image" content="https://cyberpaatam.com/assets/cyberpaatam-logo.png">
     <!-- Redirect www to non-www -->
     <script>
-      if (window.location.hostname === "www.cyberpaatam.com") {
-        window.location.replace("https://cyberpaatam.com" + window.location.pathname);
-      }
+        if (window.location.hostname === "www.cyberpaatam.com") {
+            window.location.replace("https://cyberpaatam.com" + window.location.pathname);
+        }
     </script>
 
     <!-- Tailwind CSS CDN -->
@@ -197,31 +201,36 @@
     </nav>
 
     <!-- HERO VIDEO SECTION -->
-    <div class="relative h-screen w-full overflow-hidden font-custom" style="font-family: 'Inter', sans-serif;">
-        <!-- Background Video -->
-        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover z-0">
-            <source src="assets/videos/matrix.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-        </video>
+    <div style="position: relative; overflow: hidden;">
+      <video autoplay muted loop id="bg-video-hero" style="position: absolute; z-index: -1; width: 100%; height: 100%; object-fit: cover;">
+        <source src="background2.mp4" type="video/mp4">
+      </video>
+      <div class="relative h-screen w-full overflow-hidden font-custom" style="font-family: 'Inter', sans-serif;">
+          <!-- Background Video -->
+          <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover z-0">
+              <source src="assets/videos/matrix.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+          </video>
 
-        <!-- Dark Overlay for readability -->
-        <div class="absolute inset-0 bg-black bg-opacity-70 z-10"></div>
+          <!-- Dark Overlay for readability -->
+          <div class="absolute inset-0 bg-black bg-opacity-70 z-10"></div>
 
-        <!-- Content on top of video -->
-        <div class="relative z-20 flex flex-col justify-center items-center text-center h-full px-4 sm:px-4">
-            <h1 class="text-4xl sm:text-4xl md:text-6xl font-bold text-white font-[Inter] text-green-400 animate__animated animate__fadeInDown text-center mx-auto max-w-screen-sm"
-                style="text-shadow: none;">
-                Mobile, Web, Network, Tools
-            </h1>
-            <p class="mt-6 text-lg sm:text-lg md:text-xl text-white max-w-screen-sm mx-auto text-center animate__animated animate__fadeInUp px-4"
-                style="text-shadow: none;">
-                Everything you need to become a certified ethical hacker.
-            </p>
-            <a href="#courses"
-                class="mt-8 px-6 py-3 bg-yellow-400 text-black font-bold rounded-full hover:scale-105 transition-transform duration-300 mx-auto">
-                View Courses
-            </a>
-        </div>
+          <!-- Content on top of video -->
+          <div class="relative z-20 flex flex-col justify-center items-center text-center h-full px-4 sm:px-4">
+              <h1 class="text-4xl sm:text-4xl md:text-6xl font-bold text-white font-[Inter] text-green-400 animate__animated animate__fadeInDown text-center mx-auto max-w-screen-sm"
+                  style="text-shadow: none;">
+                  Mobile, Web, Network, Tools
+              </h1>
+              <p class="mt-6 text-lg sm:text-lg md:text-xl text-white max-w-screen-sm mx-auto text-center animate__animated animate__fadeInUp px-4"
+                  style="text-shadow: none;">
+                  Everything you need to become a certified ethical hacker.
+              </p>
+              <a href="#courses"
+                  class="mt-8 px-6 py-3 bg-yellow-400 text-black font-bold rounded-full hover:scale-105 transition-transform duration-300 mx-auto">
+                  View Courses
+              </a>
+          </div>
+      </div>
     </div>
 
     <!-- Futuristic City Video Background for Courses Section -->
@@ -366,6 +375,10 @@
     <!-- Courses Section with Futuristic City Video Background -->
     <div class="relative">
         <div class="relative overflow-hidden">
+            <!-- Courses background video -->
+            <video autoplay muted loop id="bg-video-courses" style="position: absolute; z-index: -1; width: 100%; height: 100%; object-fit: cover;">
+              <source src="background1.mp4" type="video/mp4">
+            </video>
             <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover opacity-30 z-0">
                 <source src="assets/videos/futuristic-city.mp4" type="video/mp4" />
             </video>
