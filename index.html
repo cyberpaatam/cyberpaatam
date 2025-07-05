@@ -13,7 +13,13 @@
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CyberPaatam</title>
+    <title>CyberPaatam - Learn Hacking in Telugu</title>
+    <!-- Redirect www to non-www -->
+    <script>
+      if (window.location.hostname === "www.cyberpaatam.com") {
+        window.location.replace("https://cyberpaatam.com" + window.location.pathname);
+      }
+    </script>
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -1115,7 +1121,7 @@
     </section>
     <!-- Bottom line -->
     <div class="border-t border-gray-700 mt-12 pt-4 text-center text-gray-400 text-sm">
-        © 2025 CyberPaatam. Built by Hackers for Hackers.
+        © 2025 CyberPaatam. Built for Hackers.
     </div>
     <script>
         // Typing animation on scroll into view (Tailwind-compatible, no custom width)
