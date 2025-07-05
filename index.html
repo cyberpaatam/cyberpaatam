@@ -2,6 +2,15 @@
 <html lang="en">
 
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YQ0VGQE7BZ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-YQ0VGQE7BZ');
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CyberPaatam</title>
@@ -105,6 +114,25 @@
             font-family: 'Rajdhani', sans-serif;
         }
     </style>
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="CyberPaatam - Learn mobile hacking, bug bounty, and VAPT with practical labs and real case studies.">
+    <meta name="keywords"
+        content="CyberPaatam, Mobile Hacking, Bug Bounty, VAPT, Cybersecurity Course, Ethical Hacking, Learn Hacking">
+    <meta name="author" content="CyberPaatam">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="CyberPaatam - Learn Mobile Hacking & Bug Bounty">
+    <meta property="og:description"
+        content="CyberPaatam provides hands-on courses in mobile hacking, VAPT, and bug bounty.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cyberpaatam.com">
+    <meta property="og:image" content="https://cyberpaatam.com/assets/cyberpaatam-banner.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CyberPaatam - Learn Mobile Hacking & Bug Bounty">
+    <meta name="twitter:description"
+        content="Join CyberPaatam to become a cybersecurity expert with practical VAPT training.">
+    <meta name="twitter:image" content="https://cyberpaatam.com/assets/cyberpaatam-banner.png">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
 </head>
 
 <body class="p-4">
@@ -267,14 +295,7 @@
                 </template>
             </div>
 
-            <!-- Dots -->
-            <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex justify-center mt-4 space-x-2 z-20">
-                <template x-for="(slide, index) in slides" :key="index">
-                    <div :class="{'bg-yellow-300': activeSlide === index, 'bg-gray-600': activeSlide !== index}"
-                        class="w-3 h-3 rounded-full cursor-pointer transition-all duration-300"
-                        @click="nextSlide(index)"></div>
-                </template>
-            </div>
+            <!-- Dots removed -->
 
             <!-- Arrows -->
             <button @click="prev"
@@ -541,39 +562,13 @@
                 Join the CyberPaatam revolution.</p>
 
             <div
-                class="bg-gradient-to-r from-green-800 via-yellow-600 to-green-800 text-center rounded-lg py-2 px-4 shadow-lg mt-6 mb-4 max-w-screen-sm mx-auto">
-                <span class="text-white font-bold text-lg sm:text-xl" style="text-shadow: none;">
-                    ⏳ Limited Time Launch Offer (7 Days Only):
-                </span>
-                <span id="timer" class="text-white font-bold animate-pulse ml-2 text-lg sm:text-xl">
-                    6d 23h 59m 52s
-                </span>
+                class="bg-gradient-to-r from-green-600 to-yellow-500 text-white text-center rounded-lg p-2 font-bold text-lg shadow-md my-4">
+                ⏳ ENROLL NOW & GET DISCOUNT ON EVERY COURSE NOW
+                <br>
+                <span class="text-sm font-normal tracking-wide">Offer ends soon.</span>
             </div>
 </body>
-<script>
-    // Set the offer end time to 7 days from the page load
-    const offerEndTime = new Date().getTime() + 7 * 24 * 60 * 60 * 1000;
 
-    function updateTimer() {
-        const now = new Date().getTime();
-        const distance = offerEndTime - now;
-
-        if (distance < 0) {
-            document.getElementById("timer").innerText = "Offer expired!";
-            return;
-        }
-
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        document.getElementById("timer").innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-    }
-
-    updateTimer();
-    setInterval(updateTimer, 1000);
-</script>
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl sm:max-w-full mx-auto px-4 sm:px-6">
     <!-- Basic -->
@@ -1111,9 +1106,9 @@
     <section class="w-full text-center py-6 bg-black text-gray-400 border-t border-gray-700">
         <div class="flex flex-col items-center space-y-4">
             <div class="flex space-x-6 justify-center">
-                <img src="assets/security-seals/ssl-secure.png" alt="SSL Secure" class="h-10 w-auto">
-                <img src="assets/security-seals/trusted-site.png" alt="Trusted Site" class="h-10 w-auto">
-                <img src="assets/security-seals/encrypted.png" alt="Encrypted" class="h-10 w-auto">
+                <img src="assets/ssl-secure.png" alt="SSL Secure" class="h-10 w-auto">
+                <img src="assets/trusted-site.png" alt="Trusted Site" class="h-10 w-auto">
+                <img src="assets/encrypted.png" alt="Encrypted" class="h-10 w-auto">
             </div>
             <p class="text-sm mt-2">We are committed to security and privacy. All data is encrypted and protected.</p>
         </div>
