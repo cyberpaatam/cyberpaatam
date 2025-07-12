@@ -351,6 +351,16 @@
         const authForm = document.getElementById('authForm');
         const formTitle = document.getElementById('formTitle');
 
+        function showPopup(message) {
+            document.querySelector("#successPopup p").textContent = message;
+            document.getElementById("successPopup").style.display = "flex";
+        }
+
+        function closePopup() {
+            document.getElementById("successPopup").style.display = "none";
+            window.location.href = "dashboard.html";
+        }
+
         function showLogin() {
             formTitle.textContent = "Login";
             tabLoginBtn.classList.add('active');
@@ -438,14 +448,20 @@
                             createdAt: firebase.firestore.FieldValue.serverTimestamp()
                         });
                     }).then(() => {
-                        alert("Signup successful!");
-                        window.location.href = "dashboard.html";
+                        showPopup("You are successfully registered. Welcome to Cyber Paatam!");
                     }).catch((error) => {
                         alert("Error updating profile: " + error.message);
                     });
                 })
                 .catch((error) => {
-                    alert("Signup failed: " + error.message);
+                    const errorCode = error.code;
+                    let message = "Signup failed. Please try again.";
+
+                    if (errorCode === 'auth/email-already-in-use') {
+                        message = "Email is already in use.";
+                    }
+
+                    showErrorPopup(message);
                 });
         }
 
@@ -473,9 +489,39 @@
                 });
         }
 
+        function showErrorPopup(message) {
+            document.getElementById("errorPopupMessage").textContent = message;
+            document.getElementById("errorPopup").style.display = "flex";
+        }
+
+        function closeErrorPopup() {
+            document.getElementById("errorPopup").style.display = "none";
+        }
+
         // Initialize with signup view (or login view as preferred)
         showSignup(); // Or showLogin(); based on preferred default view
     </script>
+    <div id="successPopup"
+        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.6); z-index:1000; display:flex; align-items:center; justify-content:center;">
+        <div
+            style="background:#111; color:white; padding:30px; border-radius:15px; font-family:'Bebas Neue', sans-serif; max-width:300px; text-align:center; box-shadow:0 0 30px rgba(255,255,255,0.2);">
+            <h2 style="font-size:22px; margin-bottom:10px;">🎉 Registration Complete</h2>
+            <p style="font-size:16px;">You are successfully registered. Welcome to Cyber Paatam!</p>
+            <button onclick="closePopup()"
+                style="margin-top:20px; padding:10px 20px; border:none; background:white; color:black; border-radius:8px; cursor:pointer;">Continue</button>
+        </div>
+    </div>
+    <div id="errorPopup"
+        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.6); z-index:1000; display:flex; align-items:center; justify-content:center;">
+        <div
+            style="background:#330000; color:white; padding:30px; border-radius:15px; font-family:'Bebas Neue', sans-serif; max-width:300px; text-align:center; box-shadow:0 0 20px rgba(255,0,0,0.3);">
+            <h2 style="font-size:22px; margin-bottom:10px;">❌ Registration Failed</h2>
+            <p id="errorPopupMessage" style="font-size:16px;">An error occurred</p>
+            <button onclick="closeErrorPopup()"
+                style="margin-top:20px; padding:10px 20px; border:none; background:white; color:black; border-radius:8px; cursor:pointer;">Try
+                Again</button>
+        </div>
+    </div>
 </body>
 
 </html>
