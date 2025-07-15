@@ -180,9 +180,9 @@
         &copy; 2025 CYBER PAATAM. All rights reserved.
     </footer>
 
-    <script type="module">
+<script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
-  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
   import { getDatabase, ref, child, get } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js";
 
   const firebaseConfig = {
@@ -199,78 +199,78 @@
   const auth = getAuth();
   const db = getDatabase(app);
 
-        const allCourses = {
-            "STARTER_BOOTCAMP": "Cybersecurity Starter Bootcamp",
-            "CWN-P": "CWN-P: Web + Network Hacking",
-            "CMAP": "CMAP: Mobile App Pentesting",
-            "CWNP_CMAP": "CWN-P + CMAP Bundle",
-            "TOOLS_BOUNTY": "Tools Mastery + Bug Bounty",
-            "FULL_MASTERY": "Full Cyber Mastery Combo"
-        };
+  const allCourses = {
+      "STARTER_BOOTCAMP": "Cybersecurity Starter Bootcamp",
+      "CWN-P": "CWN-P: Web + Network Hacking",
+      "CMAP": "CMAP: Mobile App Pentesting",
+      "CWNP_CMAP": "CWN-P + CMAP Bundle",
+      "TOOLS_BOUNTY": "Tools Mastery + Bug Bounty",
+      "FULL_MASTERY": "Full Cyber Mastery Combo"
+  };
 
-        function logout() {
-            signOut(auth)
-                .then(() => {
-                    window.location.href = "login.html";
-                })
-                .catch((error) => {
-                    console.error("Logout failed:", error);
-                });
-        }
-        window.logout = logout;
+  function logout() {
+      signOut(auth)
+          .then(() => {
+              window.location.href = "login.html";
+          })
+          .catch((error) => {
+              console.error("Logout failed:", error);
+          });
+  }
+  window.logout = logout;
 
-        onAuthStateChanged(auth, (user) => {
-            if (!user) return (window.location.href = "login.html");
+  onAuthStateChanged(auth, (user) => {
+      if (!user) return (window.location.href = "login.html");
 
-            const uid = user.uid;
-            const userRef = ref(db, 'users/' + uid);
+      const uid = user.uid;
+      const userRef = ref(db, 'users/' + uid);
 
-            get(userRef).then((snapshot) => {
-                if (!snapshot.exists()) return;
+      get(userRef).then((snapshot) => {
+          if (!snapshot.exists()) return;
 
-                const data = snapshot.val();
-                const name = data.name || user.displayName || "Student";
-                const courses = data.courses || {};
-                const welcomeHeading = document.getElementById("welcome-heading");
-                welcomeHeading.innerText = `Welcome, ${name}`;
+          const data = snapshot.val();
+          const name = data.name || user.displayName || "Student";
+          const courses = data.courses || {};
+          const welcomeHeading = document.getElementById("welcome-heading");
+          welcomeHeading.innerText = `Welcome, ${name}`;
 
-                const enrolledContainer = document.getElementById("enrolled-courses-container");
-                const allContainer = document.getElementById("all-courses-container");
+          const enrolledContainer = document.getElementById("enrolled-courses-container");
+          const allContainer = document.getElementById("all-courses-container");
 
-                const courseColors = {
-                    "STARTER_BOOTCAMP": "#111827",
-                    "CWN-P": "#065f46",
-                    "CMAP": "#1e3a8a",
-                    "CWNP_CMAP": "#065f46",
-                    "TOOLS_BOUNTY": "#6b21a8",
-                    "FULL_MASTERY": "#9d174d"
-                };
+          const courseColors = {
+              "STARTER_BOOTCAMP": "#111827",
+              "CWN-P": "#065f46",
+              "CMAP": "#1e3a8a",
+              "CWNP_CMAP": "#065f46",
+              "TOOLS_BOUNTY": "#6b21a8",
+              "FULL_MASTERY": "#9d174d"
+          };
 
-                Object.entries(allCourses).forEach(([key, title]) => {
-                    const isEnrolled = courses.hasOwnProperty(key) && courses[key] === true;
-                    const card = document.createElement("div");
-                    card.className = "card";
-                    card.style.backgroundColor = courseColors[key] || "#21262d";
-                    card.style.flex = "1 1 300px"; // ensures side-by-side
-                    card.innerHTML = `
-                        <div style="flex-grow: 1;">
-                            <h2 style="color: ${isEnrolled ? '#ffffff' : '#8b949e'}">${title}</h2>
-                            <p>${isEnrolled ? 'You are enrolled in this course.' : 'Unlock full access to this course.'}</p>
-                        </div>
-                        ${isEnrolled
-                            ? `<a href="cwnp.html?course=${key}" style="display:inline-block; background-color:#58a6ff; color:white; padding:10px 20px; border-radius:10px; font-weight:bold; text-decoration:none;">Continue Learning</a>`
-                            : `<button disabled style="background-color: white; color: black; cursor: not-allowed;">Enroll to Access</button>`
-                        }
-                    `;
-                    if (isEnrolled) {
-                        enrolledContainer.appendChild(card);
-                    } else {
-                        allContainer.appendChild(card);
-                    }
-                });
-            });
-        });
-    </script>
+          Object.entries(allCourses).forEach(([key, title]) => {
+              const isEnrolled = courses.hasOwnProperty(key) && courses[key] === true;
+              const card = document.createElement("div");
+              card.className = "card";
+              card.style.backgroundColor = courseColors[key] || "#21262d";
+              card.style.flex = "1 1 300px";
+              card.innerHTML = `
+                  <div style="flex-grow: 1;">
+                      <h2 style="color: ${isEnrolled ? '#ffffff' : '#8b949e'}">${title}</h2>
+                      <p>${isEnrolled ? 'You are enrolled in this course.' : 'Unlock full access to this course.'}</p>
+                  </div>
+                  ${isEnrolled
+                      ? `<a href="cwnp.html?course=${key}" style="display:inline-block; background-color:#58a6ff; color:white; padding:10px 20px; border-radius:10px; font-weight:bold; text-decoration:none;">Continue Learning</a>`
+                      : `<button disabled style="background-color: white; color: black; cursor: not-allowed;">Enroll to Access</button>`
+                  }
+              `;
+              if (isEnrolled) {
+                  enrolledContainer.appendChild(card);
+              } else {
+                  allContainer.appendChild(card);
+              }
+          });
+      });
+  });
+</script>
 </body>
 
 </html>
