@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | CYBER PAATAM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #0d1117;
+            color: #c9d1d9;
+        }
+
+        header {
+            background-color: #161b22;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #30363d;
+        }
+
+        header h1 {
+            font-size: 20px;
+            color: #58a6ff;
+            margin: 0;
+        }
+
+        nav a {
+            color: #c9d1d9;
+            margin-left: 20px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #58a6ff;
+            text-shadow: 0 0 5px rgba(88, 166, 255, 0.8);
+        }
+
+        .container {
+            padding: 40px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .profile-card {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .profile-card h2 {
+            color: #58a6ff;
+            margin-bottom: 20px;
+        }
+
+        .profile-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 13px;
+            color: #8b949e;
+        }
+
+        .profile-form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid #444;
+            background: #0d1117;
+            color: #eee;
+        }
+
+        .note {
+            font-size: 12px;
+            color: #999;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #238636;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2ea043;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 12px;
+            padding: 20px;
+            background-color: #161b22;
+            border-top: 1px solid #30363d;
+            color: #8b949e;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div style="display: flex; align-items: center; gap: 16px;">
+            <img src="assets/images/cyberpaatam-logo.png" alt="CYBER PAATAM" style="width: 180px;">
+        </div>
+        <nav>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="learning-dashboard.html">Learning</a>
+            <a href="#" onclick="logout()">Logout</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="profile-card">
+            <h2>👤 Profile Settings</h2>
+            <form id="profileForm" class="profile-form">
+                <label for="displayName">Your Name</label>
+                <input type="text" id="displayName" placeholder="Enter name" />
+
+                <label for="photoURL">Profile Photo URL</label>
+                <input type="url" id="photoURL" placeholder="Paste image URL" />
+
+                <label for="email">Email Address</label>
+                <input type="email" id="email" disabled />
+                <div class="note">Contact Admin to update email address.</div>
+
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" disabled />
+                <div class="note">Contact Admin to update phone number.</div>
+
+                <button type="submit">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 CYBER PAATAM. All rights reserved.
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+        import {
+            getAuth,
+            onAuthStateChanged,
+            signOut,
+            updateProfile
+        } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAH14XuRimzgAnqC5ejuomCRlpUZm-eeok",
+            authDomain: "cyberpaatam-e266d.firebaseapp.com",
+            projectId: "cyberpaatam-e266d",
+            storageBucket: "cyberpaatam-e266d.appspot.com",
+            messagingSenderId: "583622641591",
+            appId: "1:583622641591:web:3b8ea77bd1327963eeca32"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                document.getElementById("displayName").value = user.displayName || "";
+                document.getElementById("photoURL").value = user.photoURL || "";
+                document.getElementById("email").value = user.email || "";
+                document.getElementById("phone").value = user.phoneNumber || "";
+            } else {
+                window.location.href = "login.html";
+            }
+        });
+
+        const profileForm = document.getElementById("profileForm");
+        profileForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const user = auth.currentUser;
+            if (!user) return;
+
+            const name = document.getElementById("displayName").value.trim();
+            const photo = document.getElementById("photoURL").value.trim();
+
+            try {
+                await updateProfile(user, {
+                    displayName: name || user.displayName,
+                    photoURL: photo || user.photoURL
+                });
+                alert("✅ Profile updated successfully!");
+                location.reload();
+            } catch (error) {
+                alert("❌ Failed to update profile: " + error.message);
+            }
+        });
+
+        window.logout = function () {
+            signOut(auth).then(() => window.location.href = "login.html");
+        };
+    </script>
+</body>
+
+</html>
