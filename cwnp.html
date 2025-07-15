@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CWN-P | Learning Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .module-detail {
+            background: #121212;
+            color: #f0f0f0;
+            padding: 1rem;
+            border: 1px solid #00ffae;
+            border-radius: 10px;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #111;
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .container {
+            padding: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .modules {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .module-card {
+            flex: 1 1 calc(33.333% - 1rem);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #f0f0f0;
+            border-radius: 10px;
+            padding: 1rem;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0, 255, 174, 0.4);
+        }
+
+        .module-card progress {
+            width: 100%;
+            height: 10px;
+            background-color: #333;
+        }
+
+        .module-card progress::-webkit-progress-bar {
+            background-color: #333;
+            border-radius: 5px;
+        }
+
+        .module-card progress::-webkit-progress-value {
+            background-color: #00ffae;
+            border-radius: 5px;
+        }
+
+        .module-card h3 {
+            margin-top: 0;
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            resize: vertical;
+        }
+
+        .save-btn {
+            margin-top: 0.5rem;
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .save-btn:hover {
+            background: #0056b3;
+        }
+
+        .back-btn {
+            background: #222;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .module-detail-popup {
+            background: #121212;
+            color: #f0f0f0;
+            padding: 1rem;
+            border: 1px solid #00ffae;
+            border-radius: 10px;
+            margin-top: 1rem;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>CWN-P: Web & Network Hacking</h1>
+        <a class="back-btn" href="dashboard.html">&larr; Back to Dashboard</a>
+    </header>
+
+    <div class="container">
+        <section>
+            <div class="section-title">Your Modules</div>
+            <div class="modules" id="modules-container"></div>
+        </section>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
+        import { getDatabase, ref, child, get, set } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAH14XuRimzgAnqC5ejuomCRlpUZm-eeok",
+            authDomain: "cyberpaatam-e266d.firebaseapp.com",
+            databaseURL: "https://cyberpaatam-e266d-default-rtdb.firebaseio.com",
+            projectId: "cyberpaatam-e266d",
+            storageBucket: "cyberpaatam-e266d.appspot.com",
+            messagingSenderId: "583622641591",
+            appId: "1:583622641591:web:3b8ea77bd1327963eeca32"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+        const db = getDatabase(app);
+
+        const modulesContainer = document.getElementById("modules-container");
+
+        const cwnpModules = [
+            "1. Intro to Web & Network Hacking",
+            "2. Setting Up Lab",
+            "3. Basics of Burp Suite",
+            "4. Network Reconnaissance",
+            "5. Web Recon Techniques",
+            "6. SQL Injection",
+            "7. XSS (Cross-Site Scripting)",
+            "8. Authentication Bypass",
+            "9. File Upload Vulnerabilities",
+            "10. IDOR & Access Control",
+            "11. SSRF, SSTI, LFI/RFI",
+            "12. Network Scanning with Nmap",
+            "13. Reporting Vulnerabilities",
+            "14. Real-world Bug Bounty Stories",
+            "15. Final Challenge & Review"
+        ];
+
+        function renderModules() {
+            cwnpModules.forEach((mod, index) => {
+                const card = document.createElement("div");
+                card.className = "module-card";
+                card.innerHTML = `
+                    <h3>${mod}</h3>
+                    <p>Learn how this technique works in real-world bug bounty programs and CTFs.</p>
+                    <progress value="0" max="100"></progress>
+                    <button class="save-btn" data-index="${index}" id="view-${index}">View Module</button>
+                    <div class="module-detail-popup" style="display:none; margin-top:1rem;">
+                        <p class="module-description"></p>
+                        <a href="#" target="_blank" class="save-btn">Download Notes</a>
+                        <a href="#" target="_blank" class="save-btn" style="margin-left: 0.5rem;">Download Resource</a>
+                    </div>
+                `;
+                modulesContainer.appendChild(card);
+            });
+        }
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                renderModules();
+                modulesContainer.addEventListener('click', (e) => {
+                    if (e.target.tagName === 'BUTTON' && e.target.dataset.index !== undefined) {
+                        const index = parseInt(e.target.dataset.index);
+                        const moduleName = cwnpModules[index];
+                        const parentCard = e.target.closest('.module-card');
+                        const popup = parentCard.querySelector('.module-detail-popup');
+                        const desc = popup.querySelector('.module-description');
+                        desc.textContent = `This module covers the essentials of ${moduleName.split('. ').slice(1).join('')}.`;
+                        popup.style.display = popup.style.display === 'none' ? 'block' : 'none';
+                    }
+                });
+            } else {
+                window.location.href = "login.html";
+            }
+        });
+    </script>
+</body>
+
+</html>
